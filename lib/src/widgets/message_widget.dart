@@ -32,6 +32,8 @@ class Message extends StatefulWidget {
   /// Background color of the message
   final Color? backgroundColor;
 
+  final Widget? headPortrait;
+
   Message(
       {this.content = "",
       this.fontFamily,
@@ -39,6 +41,7 @@ class Message extends StatefulWidget {
       this.textColor,
       this.ownerType = OwnerType.sender,
       this.ownerName,
+      this.headPortrait,
       this.showOwnerName = true,
       this.backgroundColor});
 
@@ -134,17 +137,19 @@ class _MessageState extends State<Message> implements IMessageWidget {
   }
 
   Widget _buildCircleAvatar() {
-    return CircleAvatar(
-        radius: 12,
-        child: Text(
-          senderInitials,
-          style: TextStyle(fontSize: 9),
-        ));
+    return widget.headPortrait ??
+        CircleAvatar(
+            radius: 12,
+            child: Text(
+              senderInitials,
+              style: TextStyle(fontSize: 9),
+            ));
   }
 }
 
 abstract class IMessageWidget {
   Widget buildReceiver();
+
   Widget buildSender();
 }
 
